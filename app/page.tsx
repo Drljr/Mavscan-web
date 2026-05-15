@@ -1,10 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
+import { siteConfig } from "@/lib/site";
 
 export default function Home() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const categories = [
     { name: "Health Products", imageSrc: "/asset/Rectangle 1725.png" },
     { name: "Wellness Products", imageSrc: "/asset/Rectangle 1722.png" },
@@ -47,86 +44,23 @@ export default function Home() {
       <div className="mx-auto flex w-full max-w-8xl flex-col gap-16">
         <nav
           aria-label="Main navigation"
-          className="flex flex-wrap max-w-[1280px] mx-auto w-full items-center justify-between gap-[24px]"
+          className="mx-auto flex w-full max-w-[1280px] flex-wrap items-center justify-between gap-[24px]"
         >
-          <div className="flex items-center gap-[24px]">
-            <a href="#" aria-label="Mavscan home" className="inline-flex items-center">
-              <Image
-                src="/asset/mavscan-full-black%201.svg"
-                alt="Mavscan"
-                width={120}
-                height={120}
-                priority
-              />
-            </a>
-            <div className="hidden items-center gap-[24px] text-[16px] font-bold text-[#0F0F1]-700 leading-[100%] tracking-[-3%] md:flex">
-              <a href="#">Home</a>
-              <a href="#">FAQs</a>
-              <a href="#">About us</a>
-              <a href="#">Contact us</a>
-            </div>
+          <a href="#" aria-label="Mavscan home" className="inline-flex items-center">
+            <Image
+              src="/asset/mavscan-full-black%201.svg"
+              alt="Mavscan"
+              width={120}
+              height={120}
+              priority
+            />
+          </a>
+          <div className="flex items-center gap-[24px] text-[16px] font-bold leading-[100%] tracking-[-3%] text-[#0F0F10]">
+            <a href="#">Home</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#">About us</a>
           </div>
-          <button
-            type="button"
-            aria-label="Open navigation menu"
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-nav-menu"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            className="inline-flex h-12 w-12 items-center justify-center  text-[#0F0F10] md:hidden"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  d="M6 6L18 18M18 6L6 18"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              ) : (
-                <path
-                  d="M4 7H20M4 12H20M4 17H20"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              )}
-            </svg>
-          </button>
-          <button className="hidden h-[56px] w-[213px] rounded-[15px] bg-[#0F0F10] text-[18px] font-bold leading-[20px] tracking-[0%] text-white md:block">
-            <span className="flex items-center justify-center">
-              <span className="text-[18px] font-bold leading-[20px] tracking-[0%] text-white">
-                {/* Create free account */}
-                Coming Soon
-              </span>
-            </span>
-          </button>
         </nav>
-        {isMobileMenuOpen && (
-          <div
-            id="mobile-nav-menu"
-            className="mx-auto -mt-10 w-full max-w-[1280px] rounded-[20px] border border-[#0F0F10]/10 bg-white p-5 shadow-[0_18px_30px_rgba(15,15,16,0.08)] md:hidden"
-          >
-            <div className="flex flex-col gap-4 text-[16px] font-bold text-[#0F0F10]">
-              <a href="#" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
-              <a href="#" onClick={() => setIsMobileMenuOpen(false)}>FAQs</a>
-              <a href="#" onClick={() => setIsMobileMenuOpen(false)}>About us</a>
-              <a href="#" onClick={() => setIsMobileMenuOpen(false)}>Contact us</a>
-            </div>
-            <button
-              type="button"
-              className="mt-5 h-[48px] w-full rounded-[12px] bg-[#0F0F10] text-[16px] font-bold text-white"
-            >
-              Coming Soon
-            </button>
-          </div>
-        )}
 
         <section className="flex flex-col items-center text-center">
           <h1 className="max-w-[660px] text-[42px] font-bold leading-[108%] tracking-[0%] text-[#0F0F10] sm:text-[56px] lg:text-[70px]">
@@ -137,7 +71,7 @@ export default function Home() {
             Verify the authenticity of cosmetics, wellness products and beverages in seconds
           </p>
 
-          <div className="mt-[31px] inline-flex overflow-hidden rounded-[20px] border-[2px] border-dashed border-[#1D2D4D] p-1 gap-[8px]">
+          {/* <div className="mt-[31px] inline-flex overflow-hidden rounded-[20px] border-[2px] border-dashed border-[#1D2D4D] p-1 gap-[8px]">
             <button className="flex items-center gap-[10px] rounded-[12px] bg-[#F3F7F8] w-auto px-[24px] h-[48px] text-[16px] font-semibold leading-[100%] tracking-[-3%] text-[#0B142D]">
               <svg
                 width="20"
@@ -174,7 +108,15 @@ export default function Home() {
               </svg>
               <span>Get on Android</span>
             </button>
-          </div>
+          </div> */}
+          <a
+            href={siteConfig.waitlistUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-[31px] inline-flex h-[48px] items-center justify-center rounded-[12px] bg-[#0F0F10] px-[32px] text-[16px] font-bold text-white"
+          >
+            Join waitlist
+          </a>
         </section>
 
         <section className="relative ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] grid w-screen grid-cols-1 gap-5 px-6 md:grid-cols-2 md:px-10 xl:grid-cols-4 xl:gap-8 xl:px-12">
@@ -197,7 +139,7 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="mx-auto w-full max-w-[1180px] rounded-[32px] px-4 py-12 sm:px-6 md:px-10 md:py-16">
+        <section id="how-it-works" className="mx-auto w-full max-w-[1180px] rounded-[32px] px-4 py-12 sm:px-6 md:px-10 md:py-16 scroll-mt-24">
           <h2 className="text-center text-[38px] font-semibold leading-[108%] tracking-[0%] text-[#0F0F10] sm:text-[48px] lg:text-[60px]">
             How it Works
           </h2>
@@ -257,7 +199,7 @@ export default function Home() {
 
         <section className="relative ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] mb-10 mt-20 flex h-auto min-h-[620px] w-screen items-center overflow-visible rounded-[36px] bg-[#001B3D] py-16 sm:mb-12 sm:mt-24 lg:mb-16 lg:mt-36 lg:h-[800px] lg:min-h-0 lg:py-0">
           <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 md:px-10">
-            <div className="grid items-stretch justify-center gap-6 md:grid-cols-2 lg:-my-28 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-8 xl:-my-48 xl:grid-cols-[700px_700px]">
+            <div className="grid items-stretch justify-center gap-6 md:grid-cols-2 lg:-my-28 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-8 xl:-my-36 xl:grid-cols-[580px_580px] 2xl:-my-48 2xl:grid-cols-[700px_700px]">
               <article className="rounded-[28px] bg-[#1E90FF] px-6 py-10 text-white sm:px-7 md:px-8 md:py-12 lg:px-10 lg:pt-[79px]">
                 <h3 className="text-[58px] font-bold leading-[83%] tracking-[0%] sm:text-[74px] lg:text-[100px]">
                   <span className="block">Why</span>
@@ -291,12 +233,12 @@ export default function Home() {
               </article>
 
               <article className="relative overflow-hidden rounded-[28px]">
-                <div className="relative h-full min-h-[360px] w-full sm:min-h-[460px] lg:min-h-[860px] xl:min-h-[927px]">
+                <div className="relative h-full min-h-[360px] w-full sm:min-h-[460px] lg:min-h-[860px] xl:min-h-[768px] 2xl:min-h-[927px]">
                   <Image
                     src="/asset/mav-scan.jpg"
                     alt="Mavscan product preview"
                     fill
-                    sizes="(min-width: 1280px) 700px, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1536px) 700px, (min-width: 1280px) 580px, (min-width: 768px) 50vw, 100vw"
                     className="object-cover"
                   />
                 </div>
@@ -368,7 +310,6 @@ export default function Home() {
                     <h4 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">Company</h4>
                     <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">About</a>
                     <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">Blog</a>
-                    <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">FAQs</a>
                   </div>
                   <div className="space-y-2 text-center md:text-left">
                     <h4 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">Legal</h4>
@@ -381,36 +322,21 @@ export default function Home() {
 
               <div className="justify-self-start mx-auto flex max-w-[430px] flex-col items-center text-center md:mx-0 md:items-end md:justify-self-end md:text-right pb-[100px] md:pb-[240px]">
                 <div className="mb-[30px] flex items-center justify-center gap-5 text-[#F5F9FF] md:justify-end">
-                  <a href="#" aria-label="Facebook" className="inline-flex">
+                  <a href="https://www.linkedin.com/company/mavscan" aria-label="LinkedIn" className="inline-flex">
                     <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
-                      <path d="M13.5 21v-7h2.3l.3-2.8h-2.6V9.4c0-.8.2-1.4 1.4-1.4H16V5.5c-.2 0-.9-.1-1.8-.1-1.7 0-2.9 1-2.9 3v1.7H9v2.8h2.3v7h2.2Z" />
+                      <path d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5V5c0-2.761-2.239-5-5-5ZM8 19H5V8h3v11ZM6.5 6.732c-.966 0-1.75-.784-1.75-1.75S5.534 3.232 6.5 3.232s1.75.784 1.75 1.75-.784 1.75-1.75 1.75ZM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19Z" />
                     </svg>
                   </a>
                   <a href="#" aria-label="Instagram" className="inline-flex">
-                    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
                       <path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9Zm10.1 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z" />
-                    </svg>
-                  </a>
-                  <a href="#" aria-label="X" className="inline-flex">
-                    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
-                      <path d="M18.9 3h2.9l-6.3 7.2L23 21h-5.9l-4.6-6-5.3 6H4.3l6.8-7.8L1 3h6.1l4.1 5.5L18.9 3Zm-1 16.2h1.6L6.2 4.7H4.5L17.9 19.2Z" />
-                    </svg>
-                  </a>
-                  <a href="#" aria-label="TikTok" className="inline-flex">
-                    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
-                      <path d="M14.2 3.5c.6 1.7 1.7 2.8 3.3 3.1v2.6a6.4 6.4 0 0 1-3.1-1v5.8a5 5 0 1 1-4.3-5v2.8a2.2 2.2 0 1 0 1.5 2.1V3.5h2.6Z" />
-                    </svg>
-                  </a>
-                  <a href="#" aria-label="YouTube" className="inline-flex">
-                    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
-                      <path d="M21.8 8.2a2.8 2.8 0 0 0-2-2c-1.8-.5-7.8-.5-7.8-.5s-6 0-7.8.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .2 3.8 2.8 2.8 0 0 0 2 2c1.8.5 7.8.5 7.8.5s6 0 7.8-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.2-3.8ZM10.2 15.3V8.7l5.8 3.3-5.8 3.3Z" />
                     </svg>
                   </a>
                 </div>
                 <p className="max-w-[359px] text-center text-[24px] font-normal leading-[100%] tracking-[-3%] text-white md:text-right">
-                  Tesmot house, Abdularahman Okene close, Victoria Island, Lagos, Nigeria.
-                  <span className="mt-8 block text-[#F5F9FF]">contact@mavscan.com</span>
-                  <span className="mt-6 block text-[#F5F9FF]">+234 700 933 933 933</span>
+                  Adebisi Ogunniyi Crescent, Lagos, Nigeria.
+                  <span className="mt-8 block text-[#F5F9FF]">hello@mavscans.com</span>
+                  <span className="mt-6 block text-[#F5F9FF]">0806 091 4935</span>
                 </p>
               </div>
             </div>
