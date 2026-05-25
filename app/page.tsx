@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteNav } from "@/components/site-nav";
+import { ViewfinderFrame } from "@/components/viewfinder-frame";
 import { siteConfig } from "@/lib/site";
 
 export default function Home() {
@@ -42,25 +45,7 @@ export default function Home() {
   return (
     <main className="w-full bg-white px-4 pt-4 pb-0 text-zinc-900 sm:px-6 md:px-10 md:pt-8 lg:px-16 lg:pt-10">
       <div className="mx-auto flex w-full max-w-8xl flex-col gap-16">
-        <nav
-          aria-label="Main navigation"
-          className="mx-auto flex w-full max-w-[1280px] flex-wrap items-center justify-between gap-[24px]"
-        >
-          <a href="#" aria-label="Mavscan home" className="inline-flex items-center">
-            <Image
-              src="/asset/mavscan-full-black%201.svg"
-              alt="Mavscan"
-              width={120}
-              height={120}
-              priority
-            />
-          </a>
-          <div className="flex items-center gap-[24px] text-[16px] font-bold leading-[100%] tracking-[-3%] text-[#0F0F10]">
-            <a href="#">Home</a>
-            <a href="#how-it-works">How it works</a>
-            <a href="#">About us</a>
-          </div>
-        </nav>
+        <SiteNav active="home" />
 
         <section className="flex flex-col items-center text-center">
           <h1 className="max-w-[660px] text-[42px] font-bold leading-[108%] tracking-[0%] text-[#0F0F10] sm:text-[56px] lg:text-[70px]">
@@ -151,7 +136,7 @@ export default function Home() {
                 className={`grid items-center gap-[56px] md:grid-cols-2 ${step.reverse ? "md:[&>*:first-child]:order-2" : ""
                   }`}
               >
-                <div className="relative">
+                <ViewfinderFrame showCorners={index === 0}>
                   <div className="relative h-[220px] overflow-hidden rounded-[20px] shadow-[0_15px_45px_rgba(15,15,16,0.12)] md:h-[350px]">
                     <Image
                       src={step.imageSrc}
@@ -173,15 +158,7 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-                  {index === 0 && (
-                    <>
-                      <div className="absolute -left-4 -top-4 h-[30px] w-[30px] rounded-tl-[12px] border-l-[3px] border-t-[3px] border-[#22C55E]" />
-                      <div className="absolute -right-4 -top-4 h-[30px] w-[30px] rounded-tr-[12px] border-r-[3px] border-t-[3px] border-[#22C55E]" />
-                      <div className="absolute -bottom-4 -left-4 h-[30px] w-[30px] rounded-bl-[12px] border-b-[3px] border-l-[3px] border-[#22C55E]" />
-                      <div className="absolute -bottom-4 -right-4 h-[30px] w-[30px] rounded-br-[12px] border-b-[3px] border-r-[3px] border-[#22C55E]" />
-                    </>
-                  )}
-                </div>
+                </ViewfinderFrame>
 
                 <div className="mx-auto flex max-w-[544px] flex-col">
                   <div className="mb-[40.5px] h-[48px] w-[39px] bg-[#FF5151]" />
@@ -290,62 +267,7 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="relative ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] w-screen rounded-t-[32px] bg-[#021728] px-6 pb-12 pt-[93px] text-white md:px-16 md:pb-14 md:pt-[93px]">
-          <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-16">
-            <div className="grid justify-items-center gap-10 md:grid-cols-[1.2fr_1fr] md:justify-items-stretch">
-              <div className="flex flex-wrap justify-center gap-10 text-center md:justify-start md:gap-[87px] md:text-left">
-                <a href="#" aria-label="Mavscan home" className="inline-flex items-start justify-center pt-[15px] md:justify-start">
-                  <Image
-                    src="/asset/mavscan-full-white%201.svg"
-                    alt="Mavscan"
-                    width={150}
-                    height={150}
-                    className="object-contain"
-                    style={{ height: "auto" }}
-                  />
-                </a>
-
-                <div className="grid grid-cols-2 gap-[40px] pt-[30px] text-[#D6E3F5] sm:gap-[60px]">
-                  <div className="space-y-2 text-center md:text-left">
-                    <h4 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">Company</h4>
-                    <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">About</a>
-                    <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">Blog</a>
-                  </div>
-                  <div className="space-y-2 text-center md:text-left">
-                    <h4 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">Legal</h4>
-                    <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">Privacy Policy</a>
-                    <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">Terms of Use</a>
-                    <a href="#" className="font-eina01 block text-[24px] text-normal leading-[100%] tracking-[-3%] text-[#94A3B8]">Enterprise</a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="justify-self-start mx-auto flex max-w-[430px] flex-col items-center text-center md:mx-0 md:items-end md:justify-self-end md:text-right pb-[100px] md:pb-[240px]">
-                <div className="mb-[30px] flex items-center justify-center gap-5 text-[#F5F9FF] md:justify-end">
-                  <a href="https://www.linkedin.com/company/mavscan" aria-label="LinkedIn" className="inline-flex">
-                    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
-                      <path d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5V5c0-2.761-2.239-5-5-5ZM8 19H5V8h3v11ZM6.5 6.732c-.966 0-1.75-.784-1.75-1.75S5.534 3.232 6.5 3.232s1.75.784 1.75 1.75-.784 1.75-1.75 1.75ZM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19Z" />
-                    </svg>
-                  </a>
-                  <a href="#" aria-label="Instagram" className="inline-flex">
-                    <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
-                      <path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Zm0 1.8A2.7 2.7 0 0 0 4.8 7.5v9a2.7 2.7 0 0 0 2.7 2.7h9a2.7 2.7 0 0 0 2.7-2.7v-9a2.7 2.7 0 0 0-2.7-2.7h-9Zm10.1 1.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z" />
-                    </svg>
-                  </a>
-                </div>
-                <p className="max-w-[359px] text-center text-[24px] font-normal leading-[100%] tracking-[-3%] text-white md:text-right">
-                  Adebisi Ogunniyi Crescent, Lagos, Nigeria.
-                  <span className="mt-8 block text-[#F5F9FF]">hello@mavscans.com</span>
-                  <span className="mt-6 block text-[#F5F9FF]">0806 091 4935</span>
-                </p>
-              </div>
-            </div>
-
-            <p className="text-center text-[24px] font-semibold leading-[108%] tracking-[0%] text-[#F5F9FF]">
-              2016 - 2025 Mavscan Ltd - RC 14059722
-            </p>
-          </div>
-        </footer>
+        <SiteFooter />
       </div>
     </main>
   );
