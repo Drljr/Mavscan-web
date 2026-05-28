@@ -3,6 +3,9 @@ const path = require("path");
 
 const MAX_SIZE_BYTES = 200 * 1024;
 const SUPPORTED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp", ".avif"];
+/** Prefer originals over already-optimized outputs when both exist (e.g. lionel.jpg + lionel.avif). */
+const SOURCE_PRIORITY = { ".png": 0, ".jpg": 1, ".jpeg": 1, ".webp": 2, ".avif": 3 };
+const DERIVED_EXTENSIONS = new Set([".avif", ".webp"]);
 const FORCE_CONVERT_PUBLIC_PATHS = ["asset/about/team/"];
 const SOURCE_DIRS = ["app", "components", "lib", "public", "content", "src"];
 const TEXT_EXTENSIONS = new Set([
@@ -148,18 +151,58 @@ async function updateReferencesAndDeleteOriginal(filePath, publicDir, projectRoo
   }
 }
 
+async function collectImagesToOptimize(publicDir) {
+  const candidates = [];
+  for await (const filePath of walk(publicDir)) {
+    if (filePath.toLowerCase().endsWith(".svg")) continue;
+    const ext = path.extname(filePath).toLowerCase();
+    if (!SUPPORTED_EXTENSIONS.includes(ext)) continue;
+    candidates.push(filePath);
+  }
+
+  const byBaseKey = new Map();
+  for (const filePath of candidates) {
+    const dir = path.dirname(filePath);
+    const baseName = path.basename(filePath, path.extname(filePath));
+    const key = `${dir}${path.sep}${baseName}`;
+    if (!byBaseKey.has(key)) byBaseKey.set(key, []);
+    byBaseKey.get(key).push(filePath);
+  }
+
+  const toProcess = [];
+  for (const group of byBaseKey.values()) {
+    const bestSource = group.reduce((best, filePath) => {
+      const priority = SOURCE_PRIORITY[path.extname(filePath).toLowerCase()] ?? 99;
+      const bestPriority = SOURCE_PRIORITY[path.extname(best).toLowerCase()] ?? 99;
+      return priority < bestPriority ? filePath : best;
+    });
+
+    for (const filePath of group) {
+      if (filePath === bestSource) continue;
+      const ext = path.extname(filePath).toLowerCase();
+      if (DERIVED_EXTENSIONS.has(ext)) {
+        try {
+          await fs.unlink(filePath);
+        } catch {
+          // ignore missing files
+        }
+      }
+    }
+
+    toProcess.push(bestSource);
+  }
+
+  return toProcess;
+}
+
 async function optimizeImage(sharp, filePath, publicDir, projectRoot) {
   const ext = path.extname(filePath).toLowerCase();
   if (!SUPPORTED_EXTENSIONS.includes(ext)) return;
 
   const stat = await fs.stat(filePath);
-  const relativeFromPublic = path
-    .relative(publicDir, filePath)
-    .split(path.sep)
-    .join("/")
-    .toLowerCase();
+  const relativeFromPublic = path.relative(publicDir, filePath).split(path.sep).join("/");
   const isForceConvertPath = FORCE_CONVERT_PUBLIC_PATHS.some((segment) =>
-    relativeFromPublic.includes(segment)
+    relativeFromPublic.toLowerCase().includes(segment)
   );
   if (!isForceConvertPath && stat.size <= MAX_SIZE_BYTES) return;
 
@@ -173,6 +216,8 @@ async function optimizeImage(sharp, filePath, publicDir, projectRoot) {
     const buffer = await getOptimizedBuffer(sharp, inputBuffer, format);
     await fs.writeFile(outputPath, buffer);
   }
+
+  console.log(`[optimize-images] ${relativeFromPublic} -> ${baseName}.avif, ${baseName}.webp`);
 
   await updateReferencesAndDeleteOriginal(filePath, publicDir, projectRoot, "avif");
 }
@@ -198,8 +243,8 @@ async function main() {
     return;
   }
 
-  for await (const filePath of walk(publicDir)) {
-    if (filePath.toLowerCase().endsWith(".svg")) continue;
+  const imagesToOptimize = await collectImagesToOptimize(publicDir);
+  for (const filePath of imagesToOptimize) {
     try {
       await optimizeImage(sharp, filePath, publicDir, projectRoot);
     } catch (err) {
