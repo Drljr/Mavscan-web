@@ -245,7 +245,7 @@ export default function AboutPage() {
   );
 }
 
-function TeamCard({ name, imageSrc }: { name: string; imageSrc: string }) {
+function  TeamCard({ name, imageSrc }: { name: string; imageSrc: string }) {
   return (
     <article className="relative aspect-square w-full min-w-0 max-w-[460px] overflow-hidden rounded-[24px]">
       <Image

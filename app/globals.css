@@ -21,35 +21,17 @@ body {
   font-family: "Eina 01", var(--font-outfit), Arial, Helvetica, sans-serif;
 }
 
-@keyframes values-marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+.values-marquee {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.values-marquee-track {
-  animation: values-marquee-scroll 40s linear infinite;
-  will-change: transform;
+.values-marquee::-webkit-scrollbar {
+  display: none;
 }
 
-.values-marquee:hover .values-marquee-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .values-marquee {
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .values-marquee::-webkit-scrollbar {
-    display: none;
-  }
-
-  .values-marquee-track {
-    animation: none;
-  }
+.values-marquee--dragging {
+  scroll-behavior: auto;
+  user-select: none;
 }

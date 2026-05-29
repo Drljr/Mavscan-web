@@ -7,26 +7,26 @@ export function SiteFooter() {
   const displayPhone = contact.phone.replace("+234", "0");
 
   return (
-    <footer className="relative ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] w-screen rounded-t-[32px] bg-[#021728] px-6 pb-12 pt-[93px] text-white md:px-16 md:pb-14 md:pt-[93px]">
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-16">
+    <footer className="relative ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] w-screen rounded-t-[32px] bg-[#021728] px-6 pb-10 pt-[70px] text-white md:px-16 md:pb-12 md:pt-[74px]">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-12">
         <div className="grid justify-items-center gap-10 md:grid-cols-[1.2fr_1fr] md:justify-items-stretch">
-          <div className="flex flex-wrap justify-center gap-10 text-center md:justify-start md:gap-[87px] md:text-left">
+          <div className="flex flex-wrap justify-center gap-10 text-center md:justify-start md:gap-14 lg:gap-16 md:text-left">
             <Link
               href="/"
               aria-label="Mavscan home"
-              className="inline-flex items-start justify-center pt-[15px] md:justify-start"
+              className="inline-flex items-start justify-center pt-2 md:justify-start"
             >
               <Image
                 src="/asset/mavscan-full-white%201.svg"
                 alt="Mavscan"
-                width={150}
-                height={150}
+                width={135}
+                height={135}
                 className="object-contain"
                 style={{ height: "auto" }}
               />
             </Link>
 
-            <div className="grid grid-cols-2 gap-[40px] pt-[30px] text-[#D6E3F5] sm:gap-[60px]">
+            <div className="grid grid-cols-2 gap-6 pt-4 text-[#D6E3F5] sm:gap-9 md:pt-4">
               <div className="space-y-2 text-center md:text-left">
                 <h4 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">
                   Company
@@ -70,8 +70,8 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="mx-auto flex max-w-[430px] flex-col items-center justify-self-start pb-[100px] text-center md:mx-0 md:items-end md:justify-self-end md:pb-[240px] md:text-right">
-            <div className="mb-[30px] flex items-center justify-center gap-5 text-[#F5F9FF] md:justify-end">
+          <div className="mx-auto flex max-w-[430px] flex-col items-center justify-self-start pb-[50px] text-center md:mx-0 md:items-end md:justify-self-end md:pb-[120px] md:text-right">
+            <div className="mb-5 flex items-center justify-center gap-5 text-[#F5F9FF] md:justify-end">
               <a
                 href="https://www.linkedin.com/company/mavscan"
                 aria-label="LinkedIn"
@@ -89,15 +89,13 @@ export function SiteFooter() {
             </div>
             <p className="max-w-[359px] text-center text-[24px] font-normal leading-[100%] tracking-[-3%] text-white md:text-right">
               {contact.address}
-              <span className="mt-8 block text-[#F5F9FF]">{contact.email}</span>
-              <span className="mt-6 block text-[#F5F9FF]">{displayPhone}</span>
+              <span className="mt-6 block text-[#F5F9FF]">{contact.email}</span>
+              <span className="mt-4 block text-[#F5F9FF]">{displayPhone}</span>
             </p>
           </div>
         </div>
 
-        <p className="text-center text-[24px] font-semibold leading-[108%] tracking-[0%] text-[#F5F9FF]">
-          2016 - 2025 Mavscan Ltd - RC 14059722
-        </p>
+      
       </div>
     </footer>
   );
