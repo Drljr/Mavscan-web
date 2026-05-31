@@ -6,6 +6,7 @@ const SUPPORTED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp", ".avif"];
 /** Prefer originals over already-optimized outputs when both exist (e.g. lionel.jpg + lionel.avif). */
 const SOURCE_PRIORITY = { ".png": 0, ".jpg": 1, ".jpeg": 1, ".webp": 2, ".avif": 3 };
 const DERIVED_EXTENSIONS = new Set([".avif", ".webp"]);
+const ORIGINAL_EXTENSIONS = new Set([".png", ".jpg", ".jpeg"]);
 const FORCE_CONVERT_PUBLIC_PATHS = ["asset/about/team/"];
 const SOURCE_DIRS = ["app", "components", "lib", "public", "content", "src"];
 const TEXT_EXTENSIONS = new Set([
@@ -171,6 +172,11 @@ async function collectImagesToOptimize(publicDir) {
 
   const toProcess = [];
   for (const group of byBaseKey.values()) {
+    const hasOriginal = group.some((filePath) =>
+      ORIGINAL_EXTENSIONS.has(path.extname(filePath).toLowerCase())
+    );
+    if (!hasOriginal) continue;
+
     const bestSource = group.reduce((best, filePath) => {
       const priority = SOURCE_PRIORITY[path.extname(filePath).toLowerCase()] ?? 99;
       const bestPriority = SOURCE_PRIORITY[path.extname(best).toLowerCase()] ?? 99;
@@ -219,7 +225,10 @@ async function optimizeImage(sharp, filePath, publicDir, projectRoot) {
 
   console.log(`[optimize-images] ${relativeFromPublic} -> ${baseName}.avif, ${baseName}.webp`);
 
-  await updateReferencesAndDeleteOriginal(filePath, publicDir, projectRoot, "avif");
+  const inputExt = path.extname(filePath).toLowerCase();
+  if (ORIGINAL_EXTENSIONS.has(inputExt)) {
+    await updateReferencesAndDeleteOriginal(filePath, publicDir, projectRoot, "avif");
+  }
 }
 
 async function main() {

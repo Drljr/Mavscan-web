@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const categories = [
-    { name: "Health Products", imageSrc: "/asset/Rectangle 1725.avif" },
-    { name: "Wellness Products", imageSrc: "/asset/Rectangle 1722.avif" },
-    { name: "Cosmetics", imageSrc: "/asset/Rectangle 1723.avif" },
-    { name: "Beverages", imageSrc: "/asset/Rectangle 1724.avif" },
+    { name: "Health Products", imageSrc: "/asset/Rectangle%201725.webp" },
+    { name: "Wellness Products", imageSrc: "/asset/Rectangle%201722.webp" },
+    { name: "Cosmetics", imageSrc: "/asset/Rectangle%201723.webp" },
+    { name: "Beverages", imageSrc: "/asset/Rectangle%201724.webp" },
   ];
   const howItWorksSteps = [
     {
@@ -22,7 +22,7 @@ export default function Home() {
       description:
         "Open your app, tap the central Scan icon, and point your phone at the product's barcode or QR code. It's that easy to get started.",
       reverse: false,
-      imageSrc: "/asset/Frame-1.avif",
+      imageSrc: "/asset/Frame-1.webp",
     },
     {
       title: "Verify Authenticity",
@@ -36,7 +36,7 @@ export default function Home() {
       description:
         "See safety certifications, manufacturer info, expiry status, ingredients, and more. Make confident, informed decisions every time.",
       reverse: false,
-      imageSrc: "/asset/Frame-3.avif",
+      imageSrc: "/asset/Frame-3.webp",
     },
   ];
   const whyMavscanPoints = [
@@ -217,7 +217,7 @@ export default function Home() {
               <article className="relative overflow-hidden rounded-[28px]">
                 <div className="relative h-full min-h-[360px] w-full sm:min-h-[460px] lg:min-h-[860px] xl:min-h-[768px] 2xl:min-h-[927px]">
                   <Image
-                    src="/asset/mav-scan.avif"
+                    src="/asset/mav-scan.webp"
                     alt="Mavscan product preview"
                     fill
                     sizes="(min-width: 1536px) 700px, (min-width: 1280px) 580px, (min-width: 768px) 50vw, 100vw"

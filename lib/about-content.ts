@@ -1,10 +1,10 @@
 export const aboutAssets = {
-  heroOrigin: "/asset/about/hero-origin.avif",
-  missionVision: "/asset/about/mission-vision.avif",
+  heroOrigin: "/asset/about/hero-origin.webp",
+  missionVision: "/asset/about/mission-vision.webp",
   valueEmbraceChange: "/asset/about/value-embrace-change.svg",
   valueCollaboration: "/asset/about/value-collaboration.svg",
   valueCreateImpact: "/asset/about/value-create-impact.svg",
-  joinWaitlist: "/asset/about/join-waitlist.avif",
+  joinWaitlist: "/asset/about/join-waitlist.webp",
 } as const;
 
 export const teamMembers = [

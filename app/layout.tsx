@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/asset/mav-scan.avif",
+        url: "/asset/mav-scan.webp",
         width: 1200,
         height: 800,
         alt: "Mavscan product verification app",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: ["/asset/mav-scan.avif"],
+    images: ["/asset/mav-scan.webp"],
   },
   robots: {
     index: true,
@@ -77,7 +77,7 @@ const jsonLd = {
       "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.company,
       url: siteConfig.url,
-      logo: `${siteConfig.url}/asset/mav-scan.jpg`,
+      logo: `${siteConfig.url}/asset/mav-scan.webp`,
       email: siteConfig.contact.email,
       telephone: siteConfig.contact.phone,
       address: {

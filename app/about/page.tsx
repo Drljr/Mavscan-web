@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/asset/mav-scan.avif",
+        url: "/asset/mav-scan.webp",
         width: 1200,
         height: 800,
         alt: "Mavscan product verification app",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "About Us | Mavscan",
     description:
       "Learn how Mavscan started and our mission to reduce counterfeit product risk.",
-    images: ["/asset/mav-scan.avif"],
+    images: ["/asset/mav-scan.webp"],
   },
 };
 
