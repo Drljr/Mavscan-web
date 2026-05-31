@@ -29,7 +29,7 @@ export default function Home() {
       description:
         "The app checks against a verified database and tells you if the product is authentic, expired, or suspicious in real-time.",
       reverse: true,
-      imageSrc: "/asset/Frame-2.avif",
+      imageSrc: "/asset/Frame-2.webp",
     },
     {
       title: "Review Certification & Details",
