@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { JoinWaitlistButton } from "@/components/join-waitlist-button";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import { ViewfinderFrame } from "@/components/viewfinder-frame";
 import { ValuesMarquee } from "@/components/values-marquee";
 import { aboutAssets, teamMembers } from "@/lib/about-content";
-import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -216,14 +216,9 @@ export default function AboutPage() {
               The future of consumer safety starts with awareness. Be among the first to
               experience MAVSCAN and help shape a smarter, more informed marketplace for everyone.
             </p>
-            <Link
-              href={siteConfig.waitlistUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-[35px] inline-flex h-[56px] w-fit items-center justify-center rounded-[15px] bg-[#0F0F10] px-8 text-[16px] font-bold text-white"
-            >
+            <JoinWaitlistButton className="mt-[35px] inline-flex h-[56px] w-fit items-center justify-center rounded-[15px] bg-[#0F0F10] px-8 text-[16px] font-bold text-white">
               Join the Waitlist
-            </Link>
+            </JoinWaitlistButton>
           </div>
 
           <ViewfinderFrame className="mx-auto w-full max-w-[min(72vw,280px)] shrink-0 sm:max-w-[360px] md:max-w-[300px] lg:max-w-[380px] xl:max-w-[480px] 2xl:max-w-[574px]">

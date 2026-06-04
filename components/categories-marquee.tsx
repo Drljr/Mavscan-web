@@ -2,43 +2,39 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef } from "react";
-import { valuesCards } from "@/lib/about-content";
 
-type ValueCard = (typeof valuesCards)[number];
+const categories = [
+  { name: "Health Products", imageSrc: "/asset/category-health-products.webp" },
+  { name: "Wellness Products", imageSrc: "/asset/Rectangle%201722.webp" },
+  { name: "Cosmetics", imageSrc: "/asset/Rectangle%201723.webp" },
+  { name: "Beverages", imageSrc: "/asset/category-beverages.webp" },
+] as const;
+
+type Category = (typeof categories)[number];
 
 const SCROLL_SPEED = 0.6;
 const RESUME_DELAY_MS = 2000;
 
-function ValueCardArticle({ card }: { card: ValueCard }) {
+function CategoryCard({ item }: { item: Category }) {
   return (
-    <article
-      className={`flex h-[350px] w-[320px] shrink-0 flex-col items-center rounded-[28px] px-6 pb-0 pt-8 text-center sm:h-[350px] sm:w-[360px] lg:h-[500px] lg:w-[420px] xl:h-[540px] xl:w-[560px] 2xl:h-[571px] 2xl:w-[675px] ${card.bgClass}`}
-    >
-      <h3 className={`text-[22px] font-bold sm:text-[24px] lg:text-[36px] xl:text-[42px] 2xl:text-[50px] ${card.titleClass}`}>
-        {card.title}
-      </h3>
-      <p
-        className={`mt-3 text-[14px] font-medium leading-[129%] tracking-[-1.5%] lg:text-[20px] xl:text-[24px] 2xl:text-[24px] ${card.descriptionMaxWClass} ${card.titleClass} opacity-90`}
-      >
-        {card.description}
-      </p>
-      <div className="relative mt-auto h-[180px] w-full sm:h-[200px] lg:h-[280px] xl:h-[320px] 2xl:h-[390px]">
-        <Image
-          src={card.imageSrc}
-          alt=""
-          fill
-          draggable={false}
-          sizes="675px"
-          className="object-contain object-bottom select-none"
-          aria-hidden
-          onDragStart={(e) => e.preventDefault()}
-        />
+    <article className="relative h-[min(85vw,280px)] w-[min(85vw,280px)] shrink-0 overflow-hidden rounded-[30px] sm:h-[320px] sm:w-[320px] md:h-[400px] md:w-[400px] lg:h-[480px] lg:w-[480px] xl:h-[520px] xl:w-[520px] 2xl:h-[583px] 2xl:w-[583px]">
+      <Image
+        src={item.imageSrc}
+        alt={item.name}
+        fill
+        draggable={false}
+        sizes="(min-width: 1536px) 583px, (min-width: 1280px) 520px, (min-width: 1024px) 480px, (min-width: 768px) 400px, (min-width: 640px) 320px, 280px"
+        className="object-cover object-center select-none"
+        onDragStart={(e) => e.preventDefault()}
+      />
+      <div className="absolute bottom-[20px] left-[20px] right-[20px] text-center text-[18px] font-normal leading-[100%] tracking-[-3%] text-white sm:text-[20px]">
+        {item.name}
       </div>
     </article>
   );
 }
 
-export function ValuesMarquee() {
+export function CategoriesMarquee() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isPausedRef = useRef(false);
   const isDraggingRef = useRef(false);
@@ -46,7 +42,7 @@ export function ValuesMarquee() {
   const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prefersReducedMotionRef = useRef(false);
 
-  const marqueeItems = [...valuesCards, ...valuesCards];
+  const marqueeItems = [...categories, ...categories];
 
   const wrapScroll = useCallback(() => {
     const el = scrollRef.current;
@@ -145,7 +141,7 @@ export function ValuesMarquee() {
     <div
       ref={scrollRef}
       className="values-marquee relative ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] w-screen cursor-grab overflow-x-auto overscroll-x-contain active:cursor-grabbing"
-      aria-label="Our values"
+      aria-label="Product categories"
       onScroll={handleScroll}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -165,9 +161,9 @@ export function ValuesMarquee() {
         scheduleResume();
       }}
     >
-      <div className="values-marquee-track flex w-max gap-6 px-4 sm:px-6 lg:gap-5 2xl:gap-[24px]">
-        {marqueeItems.map((card, index) => (
-          <ValueCardArticle key={`${card.title}-${index}`} card={card} />
+      <div className="values-marquee-track flex w-max gap-5 px-4 sm:px-6 md:gap-6 lg:gap-5 2xl:gap-8">
+        {marqueeItems.map((item, index) => (
+          <CategoryCard key={`${item.name}-${index}`} item={item} />
         ))}
       </div>
     </div>

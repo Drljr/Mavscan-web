@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { CategoriesMarquee } from "@/components/categories-marquee";
+import { JoinWaitlistButton } from "@/components/join-waitlist-button";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import { ViewfinderFrame } from "@/components/viewfinder-frame";
-import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
 export default function Home() {
-  const categories = [
-    { name: "Health Products", imageSrc: "/asset/Rectangle%201725.webp" },
-    { name: "Wellness Products", imageSrc: "/asset/Rectangle%201722.webp" },
-    { name: "Cosmetics", imageSrc: "/asset/Rectangle%201723.webp" },
-    { name: "Beverages", imageSrc: "/asset/Rectangle%201724.webp" },
-  ];
   const howItWorksSteps = [
     {
       title: "Scan the item",
@@ -99,35 +94,12 @@ export default function Home() {
               <span>Get on Android</span>
             </button>
           </div> */}
-          <a
-            href={siteConfig.waitlistUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-[31px] inline-flex h-[48px] items-center justify-center rounded-[12px] bg-[#0F0F10] px-[32px] text-[16px] font-bold text-white"
-          >
+          <JoinWaitlistButton className="mt-[31px] inline-flex h-[48px] items-center justify-center rounded-[12px] bg-[#0F0F10] px-[32px] text-[16px] font-bold text-white">
             Join waitlist
-          </a>
+          </JoinWaitlistButton>
         </section>
 
-        <section className="relative ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] grid w-screen grid-cols-1 gap-5 px-6 md:grid-cols-2 md:px-10 xl:grid-cols-4 xl:gap-8 xl:px-12">
-          {categories.map((item) => (
-            <article
-              key={item.name}
-              className="relative aspect-square w-full overflow-hidden rounded-[30px]"
-            >
-              <Image
-                src={item.imageSrc}
-                alt={item.name}
-                fill
-                sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-              <div className="absolute bottom-[20px] left-[20px] right-[20px] text-center text-[20px] font-normal leading-[100%] tracking-[-3%] text-white">
-                {item.name}
-              </div>
-            </article>
-          ))}
-        </section>
+        <CategoriesMarquee />
 
         <section id="how-it-works" className="mx-auto w-full max-w-[1180px] rounded-[32px] px-4 py-12 sm:px-6 md:px-10 md:py-16 scroll-mt-24">
           <h2 className="text-center text-[38px] font-semibold leading-[108%] tracking-[0%] text-[#0F0F10] sm:text-[48px] lg:text-[60px]">
@@ -141,25 +113,33 @@ export default function Home() {
                 className={`grid items-center gap-[56px] md:grid-cols-2 ${step.reverse ? "md:[&>*:first-child]:order-2" : ""
                   }`}
               >
-                <ViewfinderFrame showCorners={index === 0}>
-                  <div className="relative h-[220px] overflow-hidden rounded-[20px] shadow-[0_15px_45px_rgba(15,15,16,0.12)] md:h-[350px]">
-                    <Image
-                      src={step.imageSrc}
-                      alt={step.title}
-                      fill
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
-                    />
+                <ViewfinderFrame
+                  showCorners={index === 0}
+                  className={index === 1 ? "relative z-10" : undefined}
+                >
+                  <div className="relative overflow-visible">
+                    <div className="relative h-[220px] overflow-hidden rounded-[20px] shadow-[0_15px_45px_rgba(15,15,16,0.12)] md:h-[350px]">
+                      <Image
+                        src={step.imageSrc}
+                        alt={step.title}
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
                     {index === 1 && (
-                      <div className="absolute right-[-14] top-[-14] flex h-14 w-14 items-center justify-center overflow-hidden rounded-[20px] border border-white/50 bg-white/50 p-2">
-                        <Image
-                          src="/asset/Group%2018171.svg"
-                          alt=""
-                          width={36}
-                          height={36}
-                          className="h-full w-full object-cover"
-                          aria-hidden="true"
-                        />
+                      <div className="verified-badge-border">
+                        <div className="verified-badge-inner">
+                          <Image
+                            src="/asset/Group%2018171.svg"
+                            alt=""
+                            width={90}
+                            height={90}
+                            unoptimized
+                            className="h-full w-full object-contain"
+                            aria-hidden="true"
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
