@@ -42,14 +42,12 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
   const [errors, setErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [submittedEmail, setSubmittedEmail] = useState("");
 
   const resetForm = useCallback(() => {
     setForm(initialFormState);
     setErrors([]);
     setIsSubmitting(false);
     setIsSuccess(false);
-    setSubmittedEmail("");
   }, []);
 
   const handleClose = useCallback(() => {
@@ -171,7 +169,6 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
 
       // 201 new lead; 200 duplicate email or honeypot fake success
       if (response.ok) {
-        setSubmittedEmail(form.email.trim());
         setIsSuccess(true);
         setForm(initialFormState);
         return;
@@ -202,43 +199,35 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
           aria-labelledby={titleId}
           className="pointer-events-auto w-full max-w-[420px] self-center rounded-[20px] bg-white px-5 py-6 shadow-[0_24px_60px_rgba(15,15,16,0.18)] sm:px-6 md:w-[540px] md:max-w-[540px] md:px-6 md:py-6 lg:w-[600px] lg:max-w-[600px] lg:rounded-[24px] lg:px-8 lg:py-8"
         >
-        <div className="flex flex-col items-center text-center">
-          <Image
-            src="/asset/mavscan-full-black%201.svg"
-            alt="Mavscan"
-            width={120}
-            height={120}
-            priority
-            className="h-16 w-auto md:h-20 lg:h-[120px]"
-          />
-          {!isSuccess && (
+        {!isSuccess && (
+          <div className="flex flex-col items-center text-center">
+            <Image
+              src="/asset/mavscan-full-black%201.svg"
+              alt="Mavscan"
+              width={120}
+              height={120}
+              priority
+              className="h-16 w-auto md:h-20 lg:h-[120px]"
+            />
             <h2
               id={titleId}
               className="mt-3 text-[20px] font-medium leading-[100%] text-[#05120A] md:text-[24px] lg:mt-[12px] lg:text-[32px]"
             >
               Get Early Access
             </h2>
-          )}
-        </div>
+          </div>
+        )}
 
         {isSuccess ? (
           <div
-            className="waitlist-success-enter mt-4 flex flex-col items-center text-center md:mt-5 lg:mt-6"
+            className="waitlist-success-enter flex flex-col items-center px-2 py-4 text-center md:px-4 md:py-6"
             role="status"
             aria-live="polite"
           >
-            <h2
-              id={titleId}
-              className="sr-only"
-            >
-              Waitlist signup successful
-            </h2>
-
             <div
-              className="waitlist-success-check relative flex h-[72px] w-[72px] items-center justify-center rounded-full bg-gradient-to-br from-[#1E90FF] to-[#008AFF] shadow-[0_14px_36px_rgba(0,138,255,0.32)] md:h-20 md:w-20"
+              className="waitlist-success-check flex h-[72px] w-[72px] items-center justify-center rounded-full bg-[#4ADE80] md:h-20 md:w-20"
               aria-hidden="true"
             >
-              <span className="absolute inset-0 rounded-full ring-4 ring-[#1E90FF]/15" />
               <svg
                 className="h-9 w-9 text-white md:h-10 md:w-10"
                 viewBox="0 0 24 24"
@@ -252,69 +241,22 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               </svg>
             </div>
 
-            <p className="mt-6 text-[22px] font-semibold leading-[110%] tracking-[-0.02em] text-[#05120A] md:text-[26px] lg:text-[28px]">
+            <h2
+              id={titleId}
+              className="mt-6 text-[20px] font-semibold leading-[120%] text-[#05120A] md:text-[24px] lg:text-[28px]"
+            >
               You&apos;re on the list!
+            </h2>
+            <p className="mt-2 max-w-[320px] text-[14px] leading-[150%] text-[#7C7C7C] md:text-[16px]">
+              Thanks for your interest. We will be sending out further communications soon.
             </p>
-            <p className="mt-2 max-w-[340px] text-[14px] leading-[150%] text-[#64748B] md:text-[15px]">
-              Thanks for your interest. We&apos;ll reach out when early access is ready.
-            </p>
-
-            <div className="mt-6 w-full rounded-[14px] border border-[#E8ECF0] bg-[#F8FAFC] px-4 py-4 text-left md:px-5 md:py-5">
-              <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#94A3B8]">
-                Confirmation email
-              </p>
-              <p className="mt-1.5 truncate text-[15px] font-semibold text-[#05120A] md:text-[16px]">
-                {submittedEmail}
-              </p>
-            </div>
-
-            <ul className="mt-5 w-full space-y-2.5 text-left text-[13px] leading-[140%] text-[#64748B] md:text-[14px]">
-              <li className="flex items-start gap-2.5">
-                <span
-                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E8F4FF] text-[#008AFF]"
-                  aria-hidden="true"
-                >
-                  <svg
-                    className="h-3 w-3"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2.5 6 5 8.5 9.5 3.5" />
-                  </svg>
-                </span>
-                <span>Check your inbox for updates from Mavscan</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span
-                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E8F4FF] text-[#008AFF]"
-                  aria-hidden="true"
-                >
-                  <svg
-                    className="h-3 w-3"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M2.5 6 5 8.5 9.5 3.5" />
-                  </svg>
-                </span>
-                <span>Spam folder? Add us to your contacts so you don&apos;t miss out</span>
-              </li>
-            </ul>
 
             <button
               type="button"
-              className="mt-7 flex h-[48px] w-full items-center justify-center rounded-[12px] bg-[#008AFF] text-[16px] font-semibold text-white transition hover:bg-[#0078E6] md:mt-8 lg:h-[60px] lg:text-[18px]"
+              className="mt-8 flex h-[48px] w-full items-center justify-center rounded-[12px] bg-[#008AFF] text-[16px] font-semibold text-white transition hover:bg-[#0078E6] md:mt-10 lg:h-[60px] lg:text-[18px]"
               onClick={handleClose}
             >
-              Done
+              Close
             </button>
           </div>
         ) : (

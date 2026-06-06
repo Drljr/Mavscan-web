@@ -10,9 +10,9 @@ export const aboutAssets = {
 export const teamMembers = [
   { name: "Lionel Eagle", imageSrc: "/asset/about/team/lionel.avif" },
   { name: "Nonye Eagle-Iheakam", imageSrc: "/asset/about/team/nonye.avif" },
-  { name: "Abiola Ogodo", imageSrc: "/asset/about/team/abiola.avif" },
-  { name: "Ike Ejiogu", imageSrc: "/asset/about/team/ike.avif" },
-  { name: "Ifunnaya Nnoka", imageSrc: "/asset/about/team/ifunnaya.avif" },
+  { name: "Abiola Ogodo", imageSrc: "/asset/about/team/abiola.webp" },
+  { name: "Ike Ejiogu", imageSrc: "/asset/about/team/ike.webp" },
+  { name: "Ifunnaya Nnoka", imageSrc: "/asset/about/team/ifunnaya.webp" },
 ] as const;
 
 export const valuesCards = [
