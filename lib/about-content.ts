@@ -12,7 +12,7 @@ export const teamMembers = [
   { name: "Nonye Eagle-Iheakam", imageSrc: "/asset/about/team/nonye.avif" },
   { name: "Abiola Ogodo", imageSrc: "/asset/about/team/abiola.avif" },
   { name: "Ike Ejiogu", imageSrc: "/asset/about/team/ike.avif" },
-  { name: "Ifunnaya Nnoka", imageSrc: "/asset/about/team/ifunnaya.avif" },
+  { name: "Ifunanya Nnoka", imageSrc: "/asset/about/team/ifunanya.avif" },
 ] as const;
 
 export const valuesCards = [
