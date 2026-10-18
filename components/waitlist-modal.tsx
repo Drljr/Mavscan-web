@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+
 type WaitlistModalProps = {
-  open: boolean;
   onClose: () => void;
 };
 
@@ -36,76 +36,23 @@ const labelClass =
 const inputClass =
   "waitlist-input h-[48px] w-full rounded-[12px] bg-[#F5F5F5] px-4 text-[16px] font-semibold leading-[100%] text-[#05120A] outline-none placeholder:font-normal placeholder:text-[#A6A8AE] focus:ring-2 focus:ring-[#1E90FF]/30 md:h-[52px] md:text-[17px] lg:h-[65px] lg:text-[21px]";
 
-export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
+/** Mounted only while open; the native <dialog> handles focus trapping, Esc, and focus return. */
+export function WaitlistModal({ onClose }: WaitlistModalProps) {
   const titleId = useId();
+  const errorsId = useId();
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const [form, setForm] = useState<FormState>(initialFormState);
   const [errors, setErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const resetForm = useCallback(() => {
-    setForm(initialFormState);
-    setErrors([]);
-    setIsSubmitting(false);
-    setIsSuccess(false);
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) dialog.showModal();
   }, []);
 
-  const handleClose = useCallback(() => {
-    onClose();
-    resetForm();
-  }, [onClose, resetForm]);
-
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    const html = document.documentElement;
-    const body = document.body;
-    const scrollY = window.scrollY;
-
-    const previousHtmlOverflow = html.style.overflow;
-    const previousBodyOverflow = body.style.overflow;
-    const previousBodyPosition = body.style.position;
-    const previousBodyTop = body.style.top;
-    const previousBodyLeft = body.style.left;
-    const previousBodyRight = body.style.right;
-    const previousBodyWidth = body.style.width;
-
-    html.classList.add("waitlist-modal-open");
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        handleClose();
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      html.classList.remove("waitlist-modal-open");
-      html.style.overflow = previousHtmlOverflow;
-      body.style.overflow = previousBodyOverflow;
-      body.style.position = previousBodyPosition;
-      body.style.top = previousBodyTop;
-      body.style.left = previousBodyLeft;
-      body.style.right = previousBodyRight;
-      body.style.width = previousBodyWidth;
-      window.scrollTo(0, scrollY);
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open, handleClose]);
-
-  if (!open) {
-    return null;
-  }
+  // Every close path goes through dialog.close() so the browser restores focus to the trigger.
+  const close = () => dialogRef.current?.close();
 
   const updateField = (field: keyof FormState, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -177,36 +124,44 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
       setErrors([data.message ?? "Something went wrong. Please try again."]);
 
     } catch {
-      setErrors(["Something went wrong. Please try again."]);
+      setErrors(["Network error. Check your internet connection and try again."]);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto overscroll-contain">
-      <button
-        type="button"
-        aria-label="Close waitlist form"
-        className="fixed inset-0 bg-[#07070780]"
-        onClick={handleClose}
-      />
-
-      <div className="relative z-10 flex min-h-full justify-center px-4 py-6 pointer-events-none lg:py-8">
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={titleId}
-          className="pointer-events-auto w-full max-w-[420px] self-center rounded-[20px] bg-white px-5 py-6 shadow-[0_24px_60px_rgba(15,15,16,0.18)] sm:px-6 md:w-[540px] md:max-w-[540px] md:px-6 md:py-6 lg:w-[600px] lg:max-w-[600px] lg:rounded-[24px] lg:px-8 lg:py-8"
+    <dialog
+      ref={dialogRef}
+      aria-labelledby={titleId}
+      onClose={onClose}
+      className="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain bg-transparent p-0 backdrop:bg-[#07070780]"
+    >
+      <div
+        className="flex min-h-full justify-center px-4 py-6 lg:py-8"
+        onClick={(event) => {
+          if (event.target === event.currentTarget) close();
+        }}
+      >
+        <div className="relative w-full max-w-[420px] self-center rounded-[20px] bg-white px-5 py-6 shadow-[0_24px_60px_rgba(15,15,16,0.18)] sm:px-6 md:w-[540px] md:max-w-[540px] md:px-6 md:py-6 lg:w-[600px] lg:max-w-[600px] lg:rounded-[24px] lg:px-8 lg:py-8">
+        <button
+          type="button"
+          aria-label="Close waitlist form"
+          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full text-[#7C7C7C] transition-colors hover:bg-[#F5F5F5] hover:text-[#05120A] lg:right-4 lg:top-4"
+          onClick={close}
         >
+          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+
         {!isSuccess && (
           <div className="flex flex-col items-center text-center">
             <Image
-              src="/asset/mavscan-full-black%201.svg"
+              src="/asset/mavscan-logo-black.png"
               alt="Mavscan"
               width={120}
               height={120}
-              priority
               className="h-16 w-auto md:h-20 lg:h-[120px]"
             />
             <h2
@@ -254,13 +209,17 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             <button
               type="button"
               className="mt-8 flex h-[48px] w-full items-center justify-center rounded-[12px] bg-[#008AFF] text-[16px] font-semibold text-white transition hover:bg-[#0078E6] md:mt-10 lg:h-[60px] lg:text-[18px]"
-              onClick={handleClose}
+              onClick={close}
             >
               Close
             </button>
           </div>
         ) : (
-          <form className="mt-6 space-y-5 text-left md:mt-7 md:space-y-5 lg:mt-[32px] lg:space-y-[30px]" onSubmit={handleSubmit}>
+          <form
+            className="mt-6 space-y-5 text-left md:mt-7 md:space-y-5 lg:mt-[32px] lg:space-y-[30px]"
+            aria-describedby={errors.length > 0 ? errorsId : undefined}
+            onSubmit={handleSubmit}
+          >
             <div className="hidden" aria-hidden="true">
               <input
                 type="text"
@@ -282,7 +241,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                 type="text"
                 autoComplete="name"
                 required
-                placeholder="John Wick"
+                placeholder="e.g. Ada Okafor"
                 className={inputClass}
                 value={form.fullName}
                 onChange={(event) => updateField("fullName", event.target.value)}
@@ -298,6 +257,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                 name="email"
                 type="email"
                 autoComplete="email"
+                spellCheck={false}
                 required
                 placeholder="you@example.com"
                 className={inputClass}
@@ -317,12 +277,12 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                 autoComplete="tel"
                 inputMode="tel"
                 placeholder="+2348012345678"
-                title="Use international format, e.g. +2348012345678"
+                aria-describedby="waitlist-phone-hint"
                 className={inputClass}
                 value={form.phone}
                 onChange={(event) => updateField("phone", event.target.value)}
               />
-              <p className="text-[12px] leading-[130%] text-[#A6A8AE] md:text-[13px]">
+              <p id="waitlist-phone-hint" className="text-[12px] leading-[130%] text-[#A6A8AE] md:text-[13px]">
                 Include country code (E.164), e.g. +2348012345678
               </p>
             </div>
@@ -337,7 +297,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                 type="text"
                 autoComplete="country-name"
                 required
-                placeholder="e.g Nigeria"
+                placeholder="e.g. Nigeria"
                 className={inputClass}
                 value={form.country}
                 onChange={(event) => updateField("country", event.target.value)}
@@ -353,7 +313,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                 name="city"
                 type="text"
                 autoComplete="address-level2"
-                placeholder="e.g Nigeria"
+                placeholder="e.g. Lagos"
                 className={inputClass}
                 value={form.city}
                 onChange={(event) => updateField("city", event.target.value)}
@@ -361,9 +321,13 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             </div>
 
             {errors.length > 0 && (
-              <ul className="space-y-1 rounded-[12px] bg-[#FEE2E2] px-4 py-3 text-left text-[13px] text-[#B91C1C]">
-                {errors.map((error) => (
-                  <li key={error}>{error}</li>
+              <ul
+                id={errorsId}
+                role="alert"
+                className="space-y-1 rounded-[12px] bg-[#FEE2E2] px-4 py-3 text-left text-[13px] text-[#B91C1C]"
+              >
+                {errors.map((error, index) => (
+                  <li key={index}>{error}</li>
                 ))}
               </ul>
             )}
@@ -372,7 +336,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               type="submit"
               disabled={isSubmitting}
               aria-busy={isSubmitting}
-              className="mt-8 flex h-[48px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#008AFF] text-[16px] font-semibold leading-[100%] text-white transition hover:bg-[#008AFF] disabled:cursor-not-allowed disabled:opacity-60 md:mt-9 md:h-[52px] lg:mt-[53px] lg:h-[60px] lg:text-[18px]"
+              className="mt-8 flex h-[48px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#008AFF] text-[16px] font-semibold leading-[100%] text-white transition hover:bg-[#0078E6] disabled:cursor-not-allowed disabled:opacity-60 md:mt-9 md:h-[52px] lg:mt-[53px] lg:h-[60px] lg:text-[18px]"
             >
               {isSubmitting && (
                 <svg
@@ -396,12 +360,12 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                   />
                 </svg>
               )}
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? "Submitting…" : "Submit"}
             </button>
           </form>
         )}
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

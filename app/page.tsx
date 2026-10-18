@@ -4,6 +4,7 @@ import { CategoriesMarquee } from "@/components/categories-marquee";
 import { JoinWaitlistButton } from "@/components/join-waitlist-button";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
+import { StoreButtons } from "@/components/store-buttons";
 import { ViewfinderFrame } from "@/components/viewfinder-frame";
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default function Home() {
 
   return (
     <main className="w-full bg-white px-4 pt-4 pb-0 text-zinc-900 sm:px-6 md:px-10 md:pt-8 lg:px-16 lg:pt-10">
-      <div className="mx-auto flex w-full max-w-8xl flex-col gap-16">
+      <div className="mx-auto flex w-full flex-col gap-16">
         <SiteNav active="home" />
 
         <section className="flex flex-col items-center text-center">
@@ -56,44 +57,7 @@ export default function Home() {
             Verify the authenticity of cosmetics, wellness products and beverages in seconds
           </p>
 
-          {/* <div className="mt-[31px] inline-flex overflow-hidden rounded-[20px] border-[2px] border-dashed border-[#1D2D4D] p-1 gap-[8px]">
-            <button className="flex items-center gap-[10px] rounded-[12px] bg-[#F3F7F8] w-auto px-[24px] h-[48px] text-[16px] font-semibold leading-[100%] tracking-[-3%] text-[#0B142D]">
-              <svg
-                width="20"
-                height="22"
-                viewBox="0 0 18 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12.864 3.649C13.67 2.66 14.247 1.297 14.101 0C12.927 0.048 11.504 0.78 10.675 1.77C9.937 2.63 9.286 4.016 9.456 5.266C10.766 5.36 12.036 4.638 12.864 3.649Z"
-                  fill="#0B142D"
-                />
-                <path
-                  d="M17.88 15.705C17.359 16.893 17.108 17.422 16.435 18.46C15.495 19.921 14.167 21.741 12.515 21.753C11.046 21.768 10.668 20.797 8.671 20.809C6.674 20.821 6.257 21.771 4.787 21.757C3.134 21.741 1.876 20.1 0.935 18.64C-1.693 14.569 -1.965 9.786 -0.345 7.314C0.808 5.54 2.63 4.501 4.341 4.501C6.086 4.501 7.185 5.472 8.649 5.472C10.067 5.472 10.93 4.5 12.945 4.5C14.466 4.5 16.078 5.331 17.231 6.766C13.47 8.944 14.08 14.29 17.88 15.705Z"
-                  fill="#0B142D"
-                />
-              </svg>
-              <span>Get on iPhone</span>
-            </button>
-            <button className="flex items-center gap-[8px] rounded-[12px] bg-[#0F0F10] w-auto px-[24px] h-[48px] text-[16px] font-semibold leading-[100%] tracking-[-3%] text-[#F3F7F8]">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path d="M3 2.5L14.182 12L3 21.5V2.5Z" fill="#34A853" />
-                <path d="M14.182 12L18.09 8.679L6.478 1.94C5.67 1.471 4.66 1.834 4.33 2.664L14.182 12Z" fill="#FBBC04" />
-                <path d="M14.182 12L4.33 21.336C4.66 22.166 5.67 22.529 6.478 22.06L18.09 15.321L14.182 12Z" fill="#EA4335" />
-                <path d="M18.09 8.679L14.182 12L18.09 15.321L21.732 13.206C22.756 12.611 22.756 11.389 21.732 10.794L18.09 8.679Z" fill="#4285F4" />
-              </svg>
-              <span>Get on Android</span>
-            </button>
-          </div> */}
+          {/* <StoreButtons className="mt-[31px]" /> */}
           <JoinWaitlistButton className="mt-[31px] inline-flex h-[48px] items-center justify-center rounded-[12px] bg-[#0F0F10] px-[32px] text-[16px] font-bold text-white">
             Join waitlist
           </JoinWaitlistButton>
@@ -147,7 +111,7 @@ export default function Home() {
 
                 <div className="mx-auto flex max-w-[544px] flex-col">
                   <div className="mb-[40.5px] h-[48px] w-[39px] bg-[#FF5151]" />
-                  <h3 className="font-outfit align-middle text-[30px] font-semibold leading-[116%] tracking-[0%] text-[#0F0F10] sm:text-[34px] lg:text-[40px]">
+                  <h3 className="align-middle text-[30px] font-semibold leading-[116%] tracking-[0%] text-[#0F0F10] sm:text-[34px] lg:text-[40px]">
                     {step.title}
                   </h3>
                   <p className="mt-[15px] max-w-[529px] text-[18px] font-normal leading-[144%] tracking-[-1.5%] text-[#64748B] sm:text-[20px] lg:text-[24px]">
@@ -163,10 +127,10 @@ export default function Home() {
           <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 md:px-10">
             <div className="grid items-stretch justify-center gap-6 md:grid-cols-2 lg:-my-28 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-8 xl:-my-36 xl:grid-cols-[580px_580px] 2xl:-my-48 2xl:grid-cols-[700px_700px]">
               <article className="rounded-[28px] bg-[#1E90FF] px-6 py-10 text-white sm:px-7 md:px-8 md:py-12 lg:px-10 lg:pt-[79px]">
-                <h3 className="text-[58px] font-bold leading-[83%] tracking-[0%] sm:text-[74px] lg:text-[100px]">
+                <h2 className="text-[58px] font-bold leading-[83%] tracking-[0%] sm:text-[74px] lg:text-[100px]">
                   <span className="block">Why</span>
                   <span className="block">Mavscan</span>
-                </h3>
+                </h2>
 
                 <ul className="mt-10 space-y-6 sm:mt-12 lg:mt-[58px] lg:space-y-[40px]">
                   {whyMavscanPoints.map((point) => (
@@ -217,24 +181,7 @@ export default function Home() {
             <p className="mt-[25px] text-[20px] font-normal leading-[144%] tracking-[-1.5%] text-[#64748B] md:text-[22px]">
               Download Mavscan for Free
             </p>
-            <div className="mt-[27px] inline-flex overflow-hidden rounded-[20px] border-[2px] border-dashed border-[#1D2D4D] p-1 gap-[8px]">
-              <button className="flex items-center gap-[10px] rounded-[12px] bg-[#F3F7F8] w-auto px-[24px] h-[48px] text-[16px] font-semibold leading-[100%] tracking-[-3%] text-[#0B142D]">
-                <svg width="20" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M12.864 3.649C13.67 2.66 14.247 1.297 14.101 0C12.927 0.048 11.504 0.78 10.675 1.77C9.937 2.63 9.286 4.016 9.456 5.266C10.766 5.36 12.036 4.638 12.864 3.649Z" fill="#0B142D" />
-                  <path d="M17.88 15.705C17.359 16.893 17.108 17.422 16.435 18.46C15.495 19.921 14.167 21.741 12.515 21.753C11.046 21.768 10.668 20.797 8.671 20.809C6.674 20.821 6.257 21.771 4.787 21.757C3.134 21.741 1.876 20.1 0.935 18.64C-1.693 14.569 -1.965 9.786 -0.345 7.314C0.808 5.54 2.63 4.501 4.341 4.501C6.086 4.501 7.185 5.472 8.649 5.472C10.067 5.472 10.93 4.5 12.945 4.5C14.466 4.5 16.078 5.331 17.231 6.766C13.47 8.944 14.08 14.29 17.88 15.705Z" fill="#0B142D" />
-                </svg>
-                <span>Get on iPhone</span>
-              </button>
-              <button className="flex items-center gap-[8px] rounded-[12px] bg-[#0F0F10] w-auto px-[24px] h-[48px] text-[16px] font-semibold leading-[100%] tracking-[-3%] text-[#F3F7F8]">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M3 2.5L14.182 12L3 21.5V2.5Z" fill="#34A853" />
-                  <path d="M14.182 12L18.09 8.679L6.478 1.94C5.67 1.471 4.66 1.834 4.33 2.664L14.182 12Z" fill="#FBBC04" />
-                  <path d="M14.182 12L4.33 21.336C4.66 22.166 5.67 22.529 6.478 22.06L18.09 15.321L14.182 12Z" fill="#EA4335" />
-                  <path d="M18.09 8.679L14.182 12L18.09 15.321L21.732 13.206C22.756 12.611 22.756 11.389 21.732 10.794L18.09 8.679Z" fill="#4285F4" />
-                </svg>
-                <span>Get on Android</span>
-              </button>
-            </div>
+            <StoreButtons className="mt-[27px]" />
           </div>
 
           <div className="relative -mb-14 flex items-center justify-center overflow-visible sm:-mb-20 md:mb-0">
@@ -242,11 +189,10 @@ export default function Home() {
               <Image
                 src="/asset/Layer%201.png"
                 alt="Mavscan app preview"
-                width={610}
-                height={833}
-                sizes="(min-width: 1024px) 500px, (min-width: 768px) 390px, (min-width: 640px) 390px, 300px"
-                className="pointer-events-none absolute -bottom-[72px] -right-[56px] z-10 h-auto w-[300px] max-w-none sm:-bottom-[49px] sm:-right-[78px] sm:w-[390px] md:-bottom-[185px] md:-right-[75px] md:w-[350px] lg:-bottom-[185px] lg:-right-[110px] lg:w-[500px]"
-                style={{ width: "auto", height: "auto" }}
+                width={1764}
+                height={2013}
+                sizes="(min-width: 1024px) 500px, (min-width: 640px) 390px, 300px"
+                className="pointer-events-none absolute -bottom-[72px] -right-[56px] z-10 h-auto w-[300px] max-w-none sm:-bottom-[49px] sm:-right-[78px] sm:w-[390px] md:-bottom-[185px] md:-right-[75px] lg:-bottom-[185px] lg:-right-[110px] lg:w-[500px]"
               />
             </div>
           </div>

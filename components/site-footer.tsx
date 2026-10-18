@@ -17,7 +17,7 @@ export function SiteFooter() {
               className="inline-flex items-start justify-center pt-2 md:justify-start"
             >
               <Image
-                src="/asset/mavscan-full-white%201.svg"
+                src="/asset/mavscan-logo-white.png"
                 alt="Mavscan"
                 width={135}
                 height={135}
@@ -28,41 +28,41 @@ export function SiteFooter() {
 
             <div className="grid grid-cols-2 gap-6 pt-4 text-[#D6E3F5] sm:gap-9 md:pt-4">
               <div className="space-y-2 text-center md:text-left">
-                <h4 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">
+                <h2 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">
                   Company
-                </h4>
+                </h2>
                 <Link
                   href="/about"
-                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   About
                 </Link>
                 <a
                   href="#"
-                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Blog
                 </a>
               </div>
               <div className="space-y-2 text-center md:text-left">
-                <h4 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">
+                <h2 className="text-[24px] font-semibold leading-[100%] tracking-[1%] text-white">
                   Legal
-                </h4>
+                </h2>
                 <a
                   href="#"
-                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Privacy Policy
                 </a>
                 <a
                   href="#"
-                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Terms of Use
                 </a>
                 <a
                   href="#"
-                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Enterprise
                 </a>
@@ -89,8 +89,12 @@ export function SiteFooter() {
             </div>
             <p className="max-w-[359px] text-center text-[24px] font-normal leading-[100%] tracking-[-3%] text-white md:text-right">
               {contact.address}
-              <span className="mt-6 block text-[#F5F9FF]">{contact.email}</span>
-              <span className="mt-4 block text-[#F5F9FF]">{displayPhone}</span>
+              <a href={`mailto:${contact.email}`} className="mt-6 block text-[#F5F9FF]">
+                {contact.email}
+              </a>
+              <a href={`tel:${contact.phone}`} className="mt-4 block text-[#F5F9FF]">
+                {displayPhone}
+              </a>
             </p>
           </div>
         </div>

@@ -55,10 +55,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
-  },
 };
 
 const jsonLd = {
@@ -87,18 +83,6 @@ const jsonLd = {
         addressCountry: "NG",
       },
     },
-    {
-      "@type": "MobileApplication",
-      name: siteConfig.name,
-      operatingSystem: "iOS, Android",
-      applicationCategory: "HealthApplication",
-      description: siteConfig.description,
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-    },
   ],
 };
 
@@ -112,7 +96,7 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} h-full overflow-x-hidden antialiased`}
     >
-      <body className="min-h-full flex flex-col overflow-x-hidden font-outfit">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

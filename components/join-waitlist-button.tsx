@@ -1,7 +1,10 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
-import { WaitlistModal } from "@/components/waitlist-modal";
+
+const loadWaitlistModal = () => import("@/components/waitlist-modal");
+const WaitlistModal = dynamic(() => loadWaitlistModal().then((mod) => mod.WaitlistModal));
 
 type JoinWaitlistButtonProps = {
   className?: string;
@@ -16,10 +19,16 @@ export function JoinWaitlistButton({
 
   return (
     <>
-      <button type="button" className={className} onClick={() => setOpen(true)}>
+      <button
+        type="button"
+        className={className}
+        onClick={() => setOpen(true)}
+        onPointerEnter={loadWaitlistModal}
+        onFocus={loadWaitlistModal}
+      >
         {children}
       </button>
-      <WaitlistModal open={open} onClose={() => setOpen(false)} />
+      {open && <WaitlistModal onClose={() => setOpen(false)} />}
     </>
   );
 }

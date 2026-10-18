@@ -17,10 +17,6 @@ body {
   font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
 }
 
-.font-eina01 {
-  font-family: "Eina 01", var(--font-outfit), Arial, Helvetica, sans-serif;
-}
-
 .values-marquee {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -54,9 +50,10 @@ body {
   transition: background-color 9999s ease-out 0s;
 }
 
-html.waitlist-modal-open {
+html:has(dialog[open]) {
   overflow: hidden;
   overscroll-behavior: none;
+  scrollbar-gutter: stable;
 }
 
 @keyframes waitlist-success-in {
@@ -77,10 +74,6 @@ html.waitlist-modal-open {
     transform: scale(0.5);
   }
 
-  65% {
-    transform: scale(1.06);
-  }
-
   100% {
     opacity: 1;
     transform: scale(1);
@@ -92,7 +85,14 @@ html.waitlist-modal-open {
 }
 
 .waitlist-success-check {
-  animation: waitlist-check-pop 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  animation: waitlist-check-pop 0.5s ease-in-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waitlist-success-enter,
+  .waitlist-success-check {
+    animation: none;
+  }
 }
 
 .verified-badge-border {

@@ -1,5 +1,5 @@
-const fs = require("fs/promises");
-const path = require("path");
+import fs from "fs/promises";
+import path from "path";
 
 const MAX_SIZE_BYTES = 200 * 1024;
 const SUPPORTED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp", ".avif"];
@@ -23,9 +23,9 @@ const TEXT_EXTENSIONS = new Set([
   ".json",
 ]);
 
-function loadSharp() {
+async function loadSharp() {
   try {
-    return require("sharp");
+    return (await import("sharp")).default;
   } catch (err) {
     console.warn(
       "[optimize-images] sharp could not be loaded; skipping optimization.",
@@ -232,7 +232,7 @@ async function optimizeImage(sharp, filePath, publicDir, projectRoot) {
 }
 
 async function main() {
-  const sharp = loadSharp();
+  const sharp = await loadSharp();
   if (!sharp) {
     process.exit(0);
     return;
