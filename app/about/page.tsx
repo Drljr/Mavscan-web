@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { JoinWaitlistButton } from "@/components/join-waitlist-button";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
@@ -63,7 +62,7 @@ export default function AboutPage() {
 
   return (
     <main className="w-full bg-white px-4 pt-4 pb-0 text-zinc-900 sm:px-6 md:px-10 md:pt-8 lg:px-16 lg:pt-8 xl:px-24 xl:pt-9 2xl:px-[151px] 2xl:pt-10">
-      <div className="mx-auto flex w-full max-w-8xl flex-col gap-16">
+      <div className="mx-auto flex w-full flex-col gap-16">
         <SiteNav active="about" />
 
         {/* Origin story */}
@@ -99,7 +98,7 @@ export default function AboutPage() {
                 fill
                 sizes="(min-width: 1536px) 574px, (min-width: 1280px) 480px, (min-width: 1024px) 380px, (min-width: 768px) 300px, (min-width: 640px) 360px, 280px"
                 className="object-cover"
-                priority
+                preload
               />
             </div>
           </ViewfinderFrame>
@@ -240,7 +239,7 @@ export default function AboutPage() {
   );
 }
 
-function  TeamCard({ name, imageSrc }: { name: string; imageSrc: string }) {
+function TeamCard({ name, imageSrc }: { name: string; imageSrc: string }) {
   return (
     <article className="relative aspect-square w-full min-w-0 max-w-[460px] overflow-hidden rounded-[24px]">
       <Image

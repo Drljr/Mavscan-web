@@ -15,11 +15,11 @@ export function SiteNav({ active = "home" }: SiteNavProps) {
     >
       <Link href="/" aria-label="Mavscan home" className="inline-flex items-center">
         <Image
-          src="/asset/mavscan-full-black%201.svg"
+          src="/asset/mavscan-logo-black.png"
           alt="Mavscan"
           width={120}
           height={120}
-          priority
+          preload
         />
       </Link>
       <div className="flex items-center gap-[24px]">
