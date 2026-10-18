@@ -1,7 +1,5 @@
-const DEFAULT_API_URL = "https://mavscan-backend.onrender.com";
-
-/** Backend URL for POST /api/leads (used by the Next.js proxy route only). */
-export function getLeadsApiUrl(): string {
-  const base = (process.env.API_URL ?? DEFAULT_API_URL).replace(/\/$/, "");
-  return `${base}/api/leads`;
+/** Backend URL for POST /api/leads (used by the Next.js proxy route only). Null when API_URL is unset. */
+export function getLeadsApiUrl(): string | null {
+  const base = process.env.API_URL?.trim().replace(/\/$/, "");
+  return base ? `${base}/api/leads` : null;
 }

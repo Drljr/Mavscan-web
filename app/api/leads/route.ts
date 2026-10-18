@@ -25,6 +25,10 @@ function errorResponse(status: number, message: string) {
 
 export async function POST(request: Request) {
   const backendUrl = getLeadsApiUrl();
+  if (!backendUrl) {
+    console.error("[api/leads] API_URL is not set");
+    return errorResponse(500, "Something went wrong on our end. Please try again shortly.");
+  }
 
   if (Number(request.headers.get("content-length")) > MAX_BODY_BYTES) {
     return errorResponse(413, "Request too large.");
