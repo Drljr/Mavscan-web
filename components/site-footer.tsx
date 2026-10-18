@@ -33,13 +33,13 @@ export function SiteFooter() {
                 </h2>
                 <Link
                   href="/about"
-                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   About
                 </Link>
                 <a
                   href="#"
-                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Blog
                 </a>
@@ -50,19 +50,19 @@ export function SiteFooter() {
                 </h2>
                 <a
                   href="#"
-                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Privacy Policy
                 </a>
                 <a
                   href="#"
-                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Terms of Use
                 </a>
                 <a
                   href="#"
-                  className="block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
+                  className="font-eina01 block text-[24px] font-normal leading-[100%] tracking-[-3%] text-[#94A3B8]"
                 >
                   Enterprise
                 </a>

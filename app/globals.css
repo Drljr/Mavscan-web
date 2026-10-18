@@ -17,6 +17,11 @@ body {
   font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
 }
 
+/* Footer links (About, Blog, Privacy Policy, Terms of Use, Enterprise) use Eina 01. */
+.font-eina01 {
+  font-family: "Eina 01", var(--font-outfit), Arial, Helvetica, sans-serif;
+}
+
 .values-marquee {
   scrollbar-width: none;
   -ms-overflow-style: none;
